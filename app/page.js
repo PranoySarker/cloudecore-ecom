@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import ProductList from "./components/ProductList";
+import ProductList from "@/components/ProductList";
 
 const fetchProducts = async () => {
   const res = await axios.get("https://admin.refabry.com/api/all/product/get");
