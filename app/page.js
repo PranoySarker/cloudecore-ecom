@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import ReduxProvider from "./redux/provider";
 import ProductList from "@/components/ProductList";
 
 const fetchProducts = async () => {
@@ -13,11 +14,16 @@ const Homepage = async () => {
   const data = await fetchProducts();
   const products = data.data;
   console.log(products);
+
+  const preloadedState = {
+    product: products,
+  };
+
   return (
-    <>
+    <ReduxProvider preloadedState={preloadedState}>
       <h1 className="text-2xl font-bold my-4">Product List</h1>
       <ProductList products={products} />
-    </>
+    </ReduxProvider>
   );
 };
 

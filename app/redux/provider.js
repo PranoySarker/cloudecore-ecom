@@ -10,5 +10,6 @@ export default function ReduxProvider({ children, preloadedState }) {
   if (!storeRef.current) {
     storeRef.current = makestore(preloadedState);
   }
+  //   console.log(storeRef.current.getState());
   return <Provider store={storeRef.current}>{children}</Provider>;
 }
