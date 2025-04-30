@@ -9,9 +9,11 @@ const singleProductpage = async ({ params }) => {
   const products = res.data?.data?.data;
 
   return (
-    <HydrateProducts products={products}>
+    <>
+      <HydrateProducts products={products} />
+      <h1 className="text-2xl text-center font-bold my-8">Product Details</h1>
       <ProductDetails id={id} />
-    </HydrateProducts>
+    </>
   );
 };
 

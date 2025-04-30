@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
         />
       </div>
       <h2 className="text-lg font-semibold">{product.name}</h2>
-      <h2 className="text-lg font-semibold">Price: {product.buying_price}</h2>
+      <h2 className="text-lg font-semibold">Price: {product.price}</h2>
       <Link href={`/product/${product.id}`}>
         <button className="w-full bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700 transition duration-300 cursor-pointer">
           See Details

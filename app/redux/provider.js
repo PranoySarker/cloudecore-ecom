@@ -8,7 +8,7 @@ export default function ReduxProvider({ children }) {
   const storeRef = useRef();
 
   if (!storeRef.current) {
-    storeRef.current = makestore(); // No preloaded state here!
+    storeRef.current = makestore();
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;
