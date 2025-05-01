@@ -50,7 +50,7 @@ const OrderForm = ({ id }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOrderSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(handleOrderSubmit)} className="space-y-4 ">
       <div>
         <label htmlFor="product_ids" className="text-white mb-2">
           Product IDs

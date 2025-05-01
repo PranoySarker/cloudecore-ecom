@@ -3,12 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import Skeleton from "./Skeleton";
 
 const ProductDetails = ({ id }) => {
   const products = useSelector((state) => state.product.products);
 
   if (!products || products.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Skeleton />
+      </div>
+    );
   }
 
   const product = products.find((product) => product.id === Number(id));
@@ -17,8 +22,8 @@ const ProductDetails = ({ id }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-5">
-        <div className="flex justify-end items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="flex justify-center md:justify-end items-center">
           <Image
             src={`https://admin.refabry.com/storage/product/${product.image}`}
             width={300}
@@ -27,7 +32,7 @@ const ProductDetails = ({ id }) => {
             className="w-1/2 h-auto object-cover"
           />
         </div>
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-8 px-4 md:px-0 mb-4">
           <h2 className="text-xl font-bold">{product.name}</h2>
           <div>
             <h2 className="text-lg font-semibold">Product Details:</h2>
