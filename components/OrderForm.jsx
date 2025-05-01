@@ -5,7 +5,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useRouter } from "next/navigation";
+
 const OrderForm = ({ id }) => {
+  const { push } = useRouter();
+
   const products = useSelector((state) => state.product.products);
   const product = products.find((product) => product.id === Number(id));
 
@@ -22,15 +26,13 @@ const OrderForm = ({ id }) => {
 
   const handleOrderSubmit = async (formData) => {
     try {
-      console.log("Submitted data:", formData);
-
       const orderData = {
         ...formData,
         product_ids: formData.product_ids || product.id,
         advance: formData.advance || null,
         discount_amount: formData.discount_amount || null,
       };
-      console.log("Order data:", orderData);
+
       const response = await axios.post(
         "https://admin.refabry.com/api/public/order/create",
         orderData
@@ -40,6 +42,7 @@ const OrderForm = ({ id }) => {
         dispatch(addOrder(response.data));
         alert("Order placed successfully!");
         reset();
+        push("/");
       }
     } catch (err) {
       console.error("Order error:", err?.message);
