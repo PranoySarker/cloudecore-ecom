@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const ProductDetails = ({ id }) => {
@@ -35,9 +36,11 @@ const ProductDetails = ({ id }) => {
           <p className="text-xl font-semibold mt-2">
             Price: {product.price} BDT
           </p>
-          <button className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
-            Order Now
-          </button>
+          <Link href={`/product/${product.id}/order`}>
+            <button className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 cursor-pointer">
+              Order Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
