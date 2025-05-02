@@ -4,6 +4,7 @@ import { addOrder } from "@/app/redux/slices/orderSlice";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "@/app/redux/slices/cartSlice";
 
 import { useRouter } from "next/navigation";
 
@@ -47,6 +48,7 @@ const OrderForm = () => {
         dispatch(addOrder(response.data));
         alert("Order placed successfully!");
         reset();
+        dispatch(clearCart());
         push("/");
       }
     } catch (err) {
