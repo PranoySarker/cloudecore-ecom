@@ -64,7 +64,7 @@ const OrderForm = () => {
         </label>
         <input
           type="text"
-          value={productIDs.join(",")}
+          defaultValue={productIDs.join(",")}
           readOnly
           {...register("product_ids")}
           className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-100 w-full sm:text-sm border-white rounded-md focus:outline-none text-white"
@@ -76,7 +76,7 @@ const OrderForm = () => {
         </label>
         <input
           type="text"
-          value={productQuantities.join(",")}
+          defaultValue={productQuantities.join(",")}
           readOnly
           {...register("s_product_qty")}
           className="px-4 py-2 border focus:border-gray-100 w-full sm:text-sm border-white rounded-md focus:outline-none text-white"
@@ -165,7 +165,7 @@ const OrderForm = () => {
         </label>
         <input
           type="number"
-          value={totalPrice().toFixed(2)}
+          defaultValue={totalPrice().toFixed(2)}
           readOnly
           {...register("cod_amount", {
             required: "COD amount is required",
@@ -192,7 +192,7 @@ const OrderForm = () => {
         </label>
         <input
           type="number"
-          value={80}
+          defaultValue={80}
           readOnly
           {...register("delivery_charge")}
           className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-100 w-full sm:text-sm border-white rounded-md focus:outline-none text-white"

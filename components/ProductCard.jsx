@@ -10,7 +10,6 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log("clicked");
     dispatch(addToCart(product));
   };
 

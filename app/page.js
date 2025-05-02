@@ -1,24 +1,26 @@
-import CartNumber from "@/components/CartNumber";
+import HeaderWithCart from "@/components/HeaderWithCart";
 import ProductList from "@/components/ProductList";
 import axios from "axios";
 
 const fetchProducts = async () => {
-  const res = await axios.get("https://admin.refabry.com/api/all/product/get");
-  const resData = await res.data;
-  const data = await resData.data;
-  return data;
+  try {
+    const res = await axios.get(
+      "https://admin.refabry.com/api/all/product/get"
+    );
+    return res.data.data;
+  } catch (err) {
+    console.error("Failed to fetch products:", err);
+    return [];
+  }
 };
 
 const Homepage = async () => {
   const data = await fetchProducts();
   const products = data.data;
+
   return (
     <>
-      <div className="flex justify-between items-center px-4">
-        <h1 className="text-2xl font-bold my-4">Product List</h1>
-        <CartNumber />
-      </div>
-
+      <HeaderWithCart />
       <ProductList products={products} />
     </>
   );
