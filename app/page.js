@@ -14,7 +14,7 @@ const Homepage = async () => {
   const products = data.data;
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center px-4">
         <h1 className="text-2xl font-bold my-4">Product List</h1>
         <CartNumber />
       </div>
