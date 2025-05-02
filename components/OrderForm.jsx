@@ -7,11 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useRouter } from "next/navigation";
 
-const OrderForm = ({ id }) => {
+const OrderForm = () => {
   const { push } = useRouter();
 
-  const products = useSelector((state) => state.product.products);
-  const product = products.find((product) => product.id === Number(id));
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const productIDs = cartItems.map((item) => item.id);
+
+  const productQuantities = cartItems.map((item) => item.quantity);
+
+  const totalPrice = () =>
+    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const dispatch = useDispatch();
 
@@ -28,7 +34,6 @@ const OrderForm = ({ id }) => {
     try {
       const orderData = {
         ...formData,
-        product_ids: formData.product_ids || product.id,
         advance: formData.advance || null,
         discount_amount: formData.discount_amount || null,
       };
@@ -57,7 +62,7 @@ const OrderForm = ({ id }) => {
         </label>
         <input
           type="text"
-          value={id}
+          value={productIDs.join(",")}
           readOnly
           {...register("product_ids")}
           className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-100 w-full sm:text-sm border-white rounded-md focus:outline-none text-white"
@@ -68,16 +73,12 @@ const OrderForm = ({ id }) => {
           Product Quantity
         </label>
         <input
-          type="number"
-          {...register("s_product_qty", {
-            required: "Quantity is required",
-            min: { value: 1, message: "Must be at least 1" },
-          })}
+          type="text"
+          value={productQuantities.join(",")}
+          readOnly
+          {...register("s_product_qty")}
           className="px-4 py-2 border focus:border-gray-100 w-full sm:text-sm border-white rounded-md focus:outline-none text-white"
         />
-        {errors.s_product_qty && (
-          <p className="text-red-500">{errors.s_product_qty.message}</p>
-        )}
       </div>
 
       <div>
@@ -162,7 +163,7 @@ const OrderForm = ({ id }) => {
         </label>
         <input
           type="number"
-          value={product?.price}
+          value={totalPrice().toFixed(2)}
           readOnly
           {...register("cod_amount", {
             required: "COD amount is required",
@@ -198,7 +199,7 @@ const OrderForm = ({ id }) => {
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Placing Order..." : "Place Order"}
