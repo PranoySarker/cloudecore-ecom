@@ -1,14 +1,25 @@
-import React, { Suspense } from "react";
+import CartNumber from "@/components/CartNumber";
 import ProductList from "@/components/ProductList";
-import Skeleton from "@/components/Skeleton";
+import axios from "axios";
 
-const Homepage = () => {
+const fetchProducts = async () => {
+  const res = await axios.get("https://admin.refabry.com/api/all/product/get");
+  const resData = await res.data;
+  const data = await resData.data;
+  return data;
+};
+
+const Homepage = async () => {
+  const data = await fetchProducts();
+  const products = data.data;
   return (
     <>
-      <h1 className="text-2xl font-bold my-4">Product List</h1>
-      <Suspense fallback={<Skeleton />}>
-        <ProductList />
-      </Suspense>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold my-4">Product List</h1>
+        <CartNumber />
+      </div>
+
+      <ProductList products={products} />
     </>
   );
 };
