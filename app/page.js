@@ -1,13 +1,14 @@
 import HeaderWithCart from "@/components/HeaderWithCart";
 import ProductList from "@/components/ProductList";
-import axios from "axios";
 
 const fetchProducts = async () => {
   try {
-    const res = await axios.get(
-      "https://admin.refabry.com/api/all/product/get"
-    );
-    return res.data.data;
+    const res = await fetch("https://admin.refabry.com/api/all/product/get");
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await res.json();
+    return data.data.data;
   } catch (err) {
     console.error("Failed to fetch products:", err);
     return [];
@@ -15,8 +16,7 @@ const fetchProducts = async () => {
 };
 
 const Homepage = async () => {
-  const data = await fetchProducts();
-  const products = data.data;
+  const products = await fetchProducts();
 
   return (
     <>
